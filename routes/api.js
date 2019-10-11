@@ -8,9 +8,13 @@
 
 'use strict';
 const mongoose = require('mongoose');
-
-
 var expect = require('chai').expect;
+
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'MessageBoard'
+})
 
 const thread = mongoose.Schema({
   text: String,
@@ -19,6 +23,8 @@ const thread = mongoose.Schema({
   reported: Boolean,
   delete_password: String,
   replies: Array
+}, {
+  collection: 'threads'
 })
 
 
