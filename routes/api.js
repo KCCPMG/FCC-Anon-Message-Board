@@ -24,18 +24,18 @@ db.on('error', function(err) {
   console.bind("Error", err);
 })
 
-const thread = mongoose.Schema({
+const threadSchema = mongoose.Schema({
   text: String,
   createdOn: Date,
   bumpedOn: Date,
   reported: Boolean,
   delete_password: String,
-  replies: Array
+  replies: [replySchema]
 }, {
   collection: 'threads'
 })
 
-const reply = mongoose.Schema({
+const replySchema = mongoose.Schema({
   text: String,
   deletePassword: String,
   threadID: String
