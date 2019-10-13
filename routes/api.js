@@ -16,6 +16,14 @@ mongoose.connect(process.env.DB, {
   dbName: 'MessageBoard'
 })
 
+const db = mongoose.connection;
+db.once('open', function(){
+  console.log('They\'re connected!')
+})
+db.on('error', function(err) {
+  console.bind("Error", err);
+})
+
 const thread = mongoose.Schema({
   text: String,
   createdOn: Date,
