@@ -54,26 +54,31 @@ var thread = new Thread({
   replies: []
 })
 
-/*
-async function addReply() {
-  let id;
-  console.log(thread);
-  id = await thread.save(function(){
-    return thread._id;
-  });
-  console.log(id);
-  let reply = {
-    text: "Obviously you are Hitler",
-    deletePassword: "delete reply",
-    threadID: id
-  }
-  thread.replies.push(reply);
-  thread.bumpedOn = new Date();
-  thread.save();
-}
 
-addReply();
-*/
+// async function addReply() {
+//   let id;
+//   console.log(thread);
+//   id = await thread.save(function(){
+//     return thread._id;
+//   });
+//   console.log(id);
+//   let reply = {
+//     text: "Obviously you are Hitler",
+//     deletePassword: "delete reply",
+//     threadID: id
+//   }
+//   thread.replies.push(reply);
+//   thread.bumpedOn = new Date();
+//   Thread.findById(id, function(err, thr){
+//     if (err) console.log(err);
+//     else if (thr !== null) console.log(thr._id === id);
+//     else console.log("null");
+//   })
+//   thread.save();
+// }
+
+// addReply();
+
 
 
 
