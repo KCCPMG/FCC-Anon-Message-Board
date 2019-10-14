@@ -35,13 +35,47 @@ const threadSchema = mongoose.Schema({
   createdOn: Date,
   bumpedOn: Date,
   reported: Boolean,
-  delete_password: String,
+  deletePassword: String,
   replies: [replySchema]
 }, {
   collection: 'threads'
 })
 
-var Thread = mongoose.model('thread', threadSchema)
+var Thread = mongoose.model('thread', threadSchema);
+
+//Test
+
+var thread = new Thread({
+  text: "This is a test",
+  createdOn: new Date(),
+  bumpedOn: null,
+  reported: false,
+  deletePassword: "delete thread",
+  replies: []
+})
+
+async function id() {
+  let id;
+  await thread.save(function(){
+    id = thread._id;
+  });
+  return id;
+}
+
+let id = id();
+console.log(id);
+
+let reply = {
+  text: "Obviously you are Hitler",
+  deletePassword: "delete reply",
+  threadID: id
+}
+
+thread.replies.push(reply);
+thread.bumpedOn = new Date();
+thread.save();
+
+
 
 
 
