@@ -24,6 +24,12 @@ db.on('error', function(err) {
   console.bind("Error", err);
 })
 
+const replySchema = mongoose.Schema({
+  text: String,
+  deletePassword: String,
+  threadID: String
+})
+
 const threadSchema = mongoose.Schema({
   text: String,
   createdOn: Date,
@@ -35,11 +41,6 @@ const threadSchema = mongoose.Schema({
   collection: 'threads'
 })
 
-const replySchema = mongoose.Schema({
-  text: String,
-  deletePassword: String,
-  threadID: String
-})
 
 
 /*
