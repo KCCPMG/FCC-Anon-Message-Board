@@ -44,17 +44,14 @@ const threadSchema = mongoose.Schema({
 var Thread = mongoose.model('thread', threadSchema);
 
 //Test
-
-var thread = new Thread({
-  text: "This is a test",
-  createdOn: new Date(),
-  bumpedOn: null,
-  reported: false,
-  deletePassword: "delete thread",
-  replies: []
-})
-
-
+// var thread = new Thread({
+//   text: "This is a test",
+//   createdOn: new Date(),
+//   bumpedOn: null,
+//   reported: false,
+//   deletePassword: "delete thread",
+//   replies: []
+// })
 // async function addReply() {
 //   let id;
 //   console.log(thread);
