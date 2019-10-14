@@ -41,6 +41,8 @@ const threadSchema = mongoose.Schema({
   collection: 'threads'
 })
 
+var Thread = mongoose.model('thread', threadSchema)
+
 
 
 /*
@@ -58,10 +60,18 @@ module.exports = function (app) {
   
   app.route('/api/threads/:board')
   .post(function(req, res){
-    
+    var board = req.params.board;
+    req.query
+
+  })
+  
+  .get(function(req, res){
+    var board = req.params.board;
   })
   
     
-  app.route('/api/replies/:board');
-
+  app.route('/api/replies/:board')
+  .post(function(req, res){
+    var board = req.params.board;
+  })
 };
