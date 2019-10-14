@@ -31,6 +31,7 @@ const replySchema = mongoose.Schema({
 })
 
 const threadSchema = mongoose.Schema({
+  board: String,
   text: String,
   createdOn: Date,
   bumpedOn: Date,
@@ -98,6 +99,7 @@ module.exports = function (app) {
   .post(function(req, res){
     var board = req.params.board;
     let newThread = new Thread({
+      board: board,
       text: req.query.text,
       createdOn: new Date(),
       bumpedOn: new Date(),
