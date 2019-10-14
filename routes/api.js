@@ -106,6 +106,7 @@ module.exports = function (app) {
       replies: []
     });
     newThread.save();
+    res.redirect('/b/board');
 
   })
   
