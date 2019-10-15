@@ -27,7 +27,8 @@ db.on('error', function(err) {
 const replySchema = mongoose.Schema({
   text: String,
   deletePassword: String,
-  threadID: String
+  threadID: String,
+  reported: false
 })
 
 const threadSchema = mongoose.Schema({
@@ -85,7 +86,7 @@ var Thread = mongoose.model('thread', threadSchema);
 /*
 x - I can POST a thread to a specific message board by passing form data text and delete_password to /api/threads/{board}.(Recomend res.redirect to board page /b/{board}) Saved will be _id, text, created_on(date&time), bumped_on(date&time, starts same as created_on), reported(boolean), delete_password, & replies(array).
 
-I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.
+x - I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.
 
 I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
 
@@ -145,11 +146,11 @@ module.exports = function (app) {
         console.log(thread);
         thread.replies.push(reply);
         thread.bumpedOn = new Date();
-        thread.save(function(err){
+        thread.save(function(err, data){
           if (err) console.log(err);
           else {
-            console.log(thread.replies);
-            res.redirect(`b/${req.query.board}/${req.body.thread_id}`);
+            console.log(data.replies);
+            res.redirect(`../../b/${req.params.board}/${req.body.thread_id}`);
           }
         });
       }
