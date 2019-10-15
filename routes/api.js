@@ -134,16 +134,23 @@ module.exports = function (app) {
     var reply = {
       text: req.body.text,
       deletePassword: req.body.delete_password,
-      threadID
+      threadID: req.body.thread_id
+    }
     
     var deletePassword = req.body.delete_password;
-    Thread.find({board: board, _id: req.body.thread_id}, function(err, thread){
+    Thread.find({board: req.query.board, _id: req.body.thread_id}, function(err, thread){
       if (err) console.log(err);
       else if (thread === null) res.send('Thread does not exist');
       else {
         thread = thread[0];
         thread.replies.push(reply);
-        thread.
+        thread.bumpedOn = new Date();
+        thread.save(function(err){
+          if (err) console.log(err);
+          else {
+            res.redirect(`b/${req.query.board}/${req.body.thread_id}`);
+          }
+        });
       }
     })
     
