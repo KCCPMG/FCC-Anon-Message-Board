@@ -109,11 +109,11 @@ module.exports = function (app) {
     });
     newThread.save();
     res.redirect(`/b/${board}`);
-
   })
   
   .get(function(req, res){
     var board = req.params.board;
+    console.log(board);
     Thread.find({board: board}, function(err, data){
       if (err) console.log(err);
       else res.json(data);
