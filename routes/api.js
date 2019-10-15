@@ -97,16 +97,14 @@ module.exports = function (app) {
   
   app.route('/api/threads/:board')
   .post(function(req, res){
-    console.log(req.query);
-    console.log(req.params);
     var board = req.params.board;
     let newThread = new Thread({
       board: board,
-      text: req.query.text,
+      text: req.body.text,
       createdOn: new Date(),
       bumpedOn: new Date(),
       reported: false,
-      deletePassword: req.query.delete_password,
+      deletePassword: req.body.delete_password,
       replies: []
     });
     newThread.save();
