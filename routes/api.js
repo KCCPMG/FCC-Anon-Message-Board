@@ -164,7 +164,7 @@ module.exports = function (app) {
           if (err) console.log(err);
           else {
             // res.json(data);
-            res.redirect(`../../api/${req.params.board}?thread_id=${req.body.thread_id}`);
+            res.redirect(`../../b/${req.params.board}?${req.body.thread_id}`);
           }
         });
       }
