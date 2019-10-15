@@ -97,6 +97,8 @@ module.exports = function (app) {
   
   app.route('/api/threads/:board')
   .post(function(req, res){
+    console.log(req.query);
+    console.log(req.params);
     var board = req.params.board;
     let newThread = new Thread({
       board: board,
