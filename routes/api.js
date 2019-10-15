@@ -173,7 +173,11 @@ module.exports = function (app) {
   
   .get(function(req, res){
     let board = req.params.board;
-    let id = req.query.id;
+    let id = req.query.thread_id;
+    Thread.findById(id, function(err, data){
+      if (err) console.log(err);
+      else res.json(data);
+    })
   })
   
   
