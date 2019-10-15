@@ -126,13 +126,11 @@ module.exports = function (app) {
     console.log(board);
     if (req.query.thread_id) {
       Thread.findById(req.query.thread_id, function(err, data){
-        console.log("query id");
         if (err) console.log(err);
         else res.json(data);
       })
     } else {
       Thread.find({board: board}, function(err, data){
-        console.log("no query id");
         if (err) console.log(err);
         else res.json(data);
       })
