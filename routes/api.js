@@ -130,6 +130,11 @@ module.exports = function (app) {
     })
   })
   
+  // app.route('/api/threads/:board?thread_id=thread_id')
+  // .get(function(req, res){
+  //   console.log(req.query.thread_id);
+  // })
+  
     
   app.route('/api/replies/:board')
   .post(function(req, res){
