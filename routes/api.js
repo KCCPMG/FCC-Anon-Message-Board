@@ -146,13 +146,12 @@ module.exports = function (app) {
       if (err) console.log(err);
       else if (thread === null) res.send('Thread does not exist');
       else {
-        console.log(thread);
         thread.replies.push(reply);
         thread.bumpedOn = new Date();
         thread.save(function(err, data){
           if (err) console.log(err);
           else {
-            console.log(data.replies);
+            res.json(data);
             res.redirect(`../../b/${req.params.board}/${req.body.thread_id}`);
           }
         });
