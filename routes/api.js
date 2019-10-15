@@ -26,9 +26,10 @@ db.on('error', function(err) {
 
 const replySchema = mongoose.Schema({
   text: String,
+  createdOn: Date,
   deletePassword: String,
   threadID: String,
-  reported: false
+  reported: Boolean
 })
 
 const threadSchema = mongoose.Schema({
@@ -134,8 +135,10 @@ module.exports = function (app) {
   .post(function(req, res){
     var reply = {
       text: req.body.text,
+      createdOn: new Date(),
       deletePassword: req.body.delete_password,
-      threadID: req.body.thread_id
+      threadID: req.body.thread_id,
+      reported: false
     }
     
     var deletePassword = req.body.delete_password;
