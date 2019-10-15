@@ -124,10 +124,19 @@ module.exports = function (app) {
   .get(function(req, res){
     var board = req.params.board;
     console.log(board);
-    Thread.find({board: board}, function(err, data){
-      if (err) console.log(err);
-      else res.json(data);
-    })
+    if (req.query.thread_id) {
+      Thread.findById(req.query.thread_id, function(err, data){
+        console.log("query id");
+        if (err) console.log(err);
+        else res.json(data);
+      })
+    } else {
+      Thread.find({board: board}, function(err, data){
+        console.log("no query id");
+        if (err) console.log(err);
+        else res.json(data);
+      })
+    }
   })
   
   // app.route('/api/threads/:board?thread_id=thread_id')
