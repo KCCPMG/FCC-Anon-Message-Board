@@ -138,11 +138,12 @@ module.exports = function (app) {
     }
     
     var deletePassword = req.body.delete_password;
-    Thread.find({board: req.query.board, _id: req.body.thread_id}, function(err, thread){
+    Thread.findById(req.body.thread_id, function(err, thread){
       if (err) console.log(err);
-      else if (thread === null) res.send('Thread does not exist');
+      else if (thread.length === 0) res.send('Thread does not exist');
       else {
-        thread = thread[0];
+        console.log(threads);
+        let thread = threads[0];
         thread.replies.push(reply);
         thread.bumpedOn = new Date();
         thread.save(function(err){
