@@ -163,8 +163,8 @@ module.exports = function (app) {
         thread.save(function(err, data){
           if (err) console.log(err);
           else {
-            res.json(data);
-            res.redirect(`../../b/${req.params.board}/${req.body.thread_id}`);
+            // res.json(data);
+            res.redirect(`../../api/${req.params.board}?thread_id=${req.body.thread_id}`);
           }
         });
       }
