@@ -130,18 +130,31 @@ module.exports = function (app) {
     Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
       let output = [];
       let retData = Object.assign(data);
+      
+      console.log(JSON.stringify(retData, null, 2));
+      
       retData.forEach(function(el) {
         let newEl = Object.assign(el);
         if (newEl.replies.length>3){
           newEl.replycount = newEl.replies.length;
           newEl.replies = newEl.replies.splice(newEl.replies.length-3);
         } else newEl.replycount = newEl.replies.length;
-        for (let reply of newEl.replies) {
-          console.log(reply.deletePassword);
-          console.log(delete reply.deletePassword);
+        
+        newEl.replies.forEach(function(reply){
+          // console.log(reply);
+          delete reply.deletePassword;
           delete reply.reported;
-          console.log(reply);
-        }
+          // console.log(reply);
+        })
+        
+        // for (let reply of newEl.replies) {
+        //   console.log(reply.deletePassword);
+        //   console.log(delete reply.deletePassword);
+        //   delete reply.reported;
+        //   console.log(reply);
+        // }
+        
+        
         output.push(newEl);
       })
       // console.log(JSON.stringify(output, null, 2));
