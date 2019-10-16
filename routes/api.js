@@ -131,28 +131,22 @@ module.exports = function (app) {
       let output = [];
       data.forEach(function(el) {
         let newEl = el;
+        console.log(newEl.replies instanceof Array, newEl.replies.length);
         if (newEl.replies.length>3){
+          newEl.replycount = newEl.replies.length;
           newEl.replies = newEl.replies.splice(newEl.replies.length-3);
         } else newEl.replycount = newEl.replies.length;
-        output.push(newEl)
+        for (let reply of newEl.replies) {
+          delete reply.deletePassword;
+          delete reply.reported;
+        }
+        output.push(newEl);
       })
       console.log(output);
       res.json(output);
 
     })
-    
-    
-    // if (req.query.thread_id) {
-    //   Thread.findById(req.query.thread_id, function(err, data){
-    //     if (err) console.log(err);
-    //     else res.json(data);
-    //   })
-    // } else {
-    //   Thread.find({board: board}, function(err, data){
-    //     if (err) console.log(err);
-    //     else res.json(data);
-    //   })
-    // }
+
   });
   
   
