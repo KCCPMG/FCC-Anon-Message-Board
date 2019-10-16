@@ -131,7 +131,6 @@ module.exports = function (app) {
       let output = [];
       data.forEach(function(el) {
         let newEl = el;
-        console.log(newEl.replies instanceof Array, newEl.replies.length);
         if (newEl.replies.length>3){
           newEl.replycount = newEl.replies.length;
           newEl.replies = newEl.replies.splice(newEl.replies.length-3);
@@ -142,7 +141,7 @@ module.exports = function (app) {
         }
         output.push(newEl);
       })
-      console.log(output);
+      console.log(JSON.stringify(output));
       res.json(output);
 
     })
