@@ -128,9 +128,10 @@ module.exports = function (app) {
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
     console.log(searchObj);
     
-    Thread.find(searchObj).sort('bumpedOn asc').limit(10, function(err, data){
+    Thread.find({board: board}).sort('-bumpedOn').limit(10, function(err, data){
       if (err) console.log(err);
       else {
+        console.log(data);
         res.json(data);
       }
     })
