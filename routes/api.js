@@ -158,7 +158,8 @@ module.exports = function (app) {
     Thread.findById(req.body.thread_id, function(err, data){
       if (err) console.log(err);
       else {
-        if (data._id === req.body.thread_id && data.deletePassword === req.body.delete_password) {
+        console.log(data)
+        if (data.board === req.params.board && data.deletePassword === req.body.delete_password) {
           data.remove();
           res.send('success');
         } else {
@@ -166,9 +167,9 @@ module.exports = function (app) {
         }
       }
     })
-    })
-
   });
+
+  
   
   
   
