@@ -123,36 +123,33 @@ module.exports = function (app) {
   
   .get(function(req, res){
     var board = req.params.board;
-    console.log(board);
     
     var searchObj = {board: board}
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
+    console.log(searchObj);
     
-    Thread.find(searchObj).sort('bumpedOn desc').limit(10, function(err, data){
+    Thread.find(searchObj).sort('bumpedOn asc').limit(10, function(err, data){
       if (err) console.log(err);
       else {
-        
+        res.json(data);
       }
     })
     
     
-    if (req.query.thread_id) {
-      Thread.findById(req.query.thread_id, function(err, data){
-        if (err) console.log(err);
-        else res.json(data);
-      })
-    } else {
-      Thread.find({board: board}, function(err, data){
-        if (err) console.log(err);
-        else res.json(data);
-      })
-    }
+    // if (req.query.thread_id) {
+    //   Thread.findById(req.query.thread_id, function(err, data){
+    //     if (err) console.log(err);
+    //     else res.json(data);
+    //   })
+    // } else {
+    //   Thread.find({board: board}, function(err, data){
+    //     if (err) console.log(err);
+    //     else res.json(data);
+    //   })
+    // }
   })
   
-  // app.route('/api/threads/:board?thread_id=thread_id')
-  // .get(function(req, res){
-  //   console.log(req.query.thread_id);
-  // })
+  
   
     
   app.route('/api/replies/:board')
@@ -193,13 +190,13 @@ module.exports = function (app) {
   })
   
   
-  app.route('/b/general')
-  .get(function(req, res){
-    Thread.find({}).sort('createdOn desc').limit(10, function(err, data) {
-      if (err) console.log(err);
-      else(res.json(data));
-    })  
-  })
+  // app.route('/b/general')
+  // .get(function(req, res){
+  //   Thread.find({}).sort('createdOn desc').limit(10, function(err, data) {
+  //     if (err) console.log(err);
+  //     else(res.json(data));
+  //   })  
+  // })
   
   
 };
