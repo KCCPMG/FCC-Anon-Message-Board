@@ -89,7 +89,7 @@ x - I can POST a thread to a specific message board by passing form data text an
 
 x - I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.
 
-I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
+x - I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
 
 x - I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
 
@@ -128,14 +128,9 @@ module.exports = function (app) {
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
     
     Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
-      let output = [];
-      data.forEach(function(el){
-        el = el.toObject();
-      })
-      let retData = Object.assign(data);
       
-      // console.log(JSON.stringify(retData, null, 2));
-      // retData = JSON.parse(JSON.stringify(retData));
+      let output = [];
+      let retData = JSON.parse(JSON.stringify(data));
       
       retData.forEach(function(el) {
         if (el.replies.length>3){
@@ -144,23 +139,12 @@ module.exports = function (app) {
         } else el.replycount = el.replies.length;
         
         el.replies.forEach(function(reply){
-          // console.log(reply);
           delete reply.deletePassword;
           delete reply.reported;
-          // console.log(reply);
         })
-        
-        // for (let reply of newEl.replies) {
-        //   console.log(reply.deletePassword);
-        //   console.log(delete reply.deletePassword);
-        //   delete reply.reported;
-        //   console.log(reply);
-        // }
-        
         
         output.push(el);
       })
-      // console.log(JSON.stringify(output, null, 2));
       res.json(output);
 
     })
