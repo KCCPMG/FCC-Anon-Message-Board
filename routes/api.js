@@ -131,9 +131,14 @@ module.exports = function (app) {
     Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
       let output = [];
       data.forEach(function(el) {
-        output.push(el)
+        let newEl = el;
+        if (newEl.replies.length>3){
+          newEl.replycount = newEl.replies.length;
+          newEl.replies = newEl.replies.splice(newEl.replies.length-3);
+        }
+        output.push(newEl)
       })
-      res.json(data);
+      res.json(output);
 
     })
     
