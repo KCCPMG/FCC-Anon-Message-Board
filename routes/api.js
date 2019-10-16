@@ -136,12 +136,14 @@ module.exports = function (app) {
           newEl.replies = newEl.replies.splice(newEl.replies.length-3);
         } else newEl.replycount = newEl.replies.length;
         for (let reply of newEl.replies) {
-          delete reply.deletePassword;
+          console.log(reply.deletePassword);
+          console.log(delete reply.deletePassword);
           delete reply.reported;
+          console.log(reply);
         }
         output.push(newEl);
       })
-      console.log(JSON.stringify(output));
+      // console.log(JSON.stringify(output, null, 2));
       res.json(output);
 
     })
