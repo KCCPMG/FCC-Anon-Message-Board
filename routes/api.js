@@ -126,18 +126,17 @@ module.exports = function (app) {
     
     var searchObj = {board: board}
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
-    console.log(searchObj);
     
     Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
       let output = [];
       data.forEach(function(el) {
         let newEl = el;
         if (newEl.replies.length>3){
-          newEl.replycount = newEl.replies.length;
           newEl.replies = newEl.replies.splice(newEl.replies.length-3);
-        }
+        } else newEl.replycount = newEl.replies.length;
         output.push(newEl)
       })
+      console.log(output);
       res.json(output);
 
     })
