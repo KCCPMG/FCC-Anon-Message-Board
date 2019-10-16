@@ -57,7 +57,7 @@
               var replycount = ele.__v;
               var hiddenCount = replycount - 3;
               if (hiddenCount < 1) { hiddenCount = 0 };
-              thread.push('<h5>'+replycount+' replies total ('+hiddenCount+' hidden)- <a href="'+window.location.pathname+ele._id+'">See the full thread here</a>.</h5>');
+              thread.push('<h5>'+replycount+' replies total ('+hiddenCount+' hidden)- <a href="'+window.location.pathname+'/'+ele._id+'">See the full thread here</a>.</h5>');
               ele.replies.forEach(function(rep) {
                 thread.push('<div class="reply">')
                 thread.push('<p class="id">id: '+rep._id+' ('+rep.createdOn+')</p>');

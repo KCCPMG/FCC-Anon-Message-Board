@@ -106,6 +106,7 @@ I can report a reply and change it's reported value to true by sending a PUT req
 module.exports = function (app) {
   
   app.route('/api/threads/:board')
+  
   .post(function(req, res){
     var board = req.params.board;
     let newThread = new Thread({
@@ -120,6 +121,7 @@ module.exports = function (app) {
     newThread.save();
     res.redirect(`/b/${board}`);
   })
+  
   
   .get(function(req, res){
     var board = req.params.board;
@@ -146,7 +148,10 @@ module.exports = function (app) {
         output.push(el);
       })
       res.json(output);
-
+    })
+    
+    .delete(function(req, res){
+      
     })
 
   });
