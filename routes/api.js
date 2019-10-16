@@ -154,7 +154,6 @@ module.exports = function (app) {
     
     // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
   .delete(function(req, res){
-    console.log(req.params.board, req.body.thread_id, req.body.delete_password);
     Thread.findById(req.body.thread_id, function(err, data){
       if (err) console.log(err);
       else {
@@ -202,6 +201,7 @@ module.exports = function (app) {
     })    
   })
   
+  
   .get(function(req, res){
     let board = req.params.board;
     let id = req.query.thread_id;
@@ -212,13 +212,10 @@ module.exports = function (app) {
   })
   
   
-  // app.route('/b/general')
-  // .get(function(req, res){
-  //   Thread.find({}).sort('createdOn desc').limit(10, function(err, data) {
-  //     if (err) console.log(err);
-  //     else(res.json(data));
-  //   })  
-  // })
-  
+ // I can delete a post(just changing the text to '[deleted]') if I send a DELETE request to /api/replies/{board} and pass along the thread_id, reply_id, & delete_password. (Text response will be 'incorrect password' or 'success')
+  .delete(function(req, res){
+    let board = req.params.board;
+    
+  })  
   
 };
