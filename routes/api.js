@@ -124,6 +124,18 @@ module.exports = function (app) {
   .get(function(req, res){
     var board = req.params.board;
     console.log(board);
+    
+    var searchObj = {board: board}
+    if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
+    
+    Thread.find(searchObj).sort('bumpedOn desc').limit(10, function(err, data){
+      if (err) console.log(err);
+      else {
+        
+      }
+    })
+    
+    
     if (req.query.thread_id) {
       Thread.findById(req.query.thread_id, function(err, data){
         if (err) console.log(err);
