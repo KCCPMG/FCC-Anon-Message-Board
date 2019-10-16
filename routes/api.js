@@ -215,23 +215,13 @@ module.exports = function (app) {
  // I can delete a post(just changing the text to '[deleted]') if I send a DELETE request to /api/replies/{board} and pass along the thread_id, reply_id, & delete_password. (Text response will be 'incorrect password' or 'success')
   .delete(function(req, res){
     Thread.findById(req.body.thread_id, function(err, data) {
-      // console.log(req.body.thread_id, data._id);
-      console.log(data._id);
       if (err) console.log(err);
       else {
         data.replies.forEach(function(el){
-          // if (el._id === req.body.reply_id && el.deletePassword === req.body.delete_password) {
-          //   console.log("found");
-          // } 
-          if (el.deletePassword === req.body.delete_password){
-            console.log('delete password match');
-            console.log(el);
+          if (el._id.toString() === req.body.reply_id && el.deletePassword === req.body.delete_password) {
+            console.log("found");
             
-            if (el._id === req.body.reply_id) {
-              console.log("reply ID match!");
-            }
-            else console.log("reply ID does not match")
-          }
+          } 
         })
       }
     });
