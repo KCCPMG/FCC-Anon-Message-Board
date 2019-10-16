@@ -91,7 +91,7 @@ x - I can POST a reply to a thead on a specific board by passing form data text,
 
 I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
 
-I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
+x - I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
 
 I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
 
@@ -178,6 +178,15 @@ module.exports = function (app) {
       if (err) console.log(err);
       else res.json(data);
     })
+  })
+  
+  
+  app.route('/b/general')
+  .get(function(req, res){
+    Thread.find({}).sort('createdOn desc').limit(10, function(err, data) {
+      if (err) console.log(err);
+      else(res.json(data));
+    })  
   })
   
   
