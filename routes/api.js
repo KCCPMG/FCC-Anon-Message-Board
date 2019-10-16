@@ -133,7 +133,7 @@ module.exports = function (app) {
       else {
         console.log(data);
         // res.json(data);
-        res.send("hello");
+        res.json("hello");
         console.log("finished");
       }
     })
