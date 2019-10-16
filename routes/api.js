@@ -131,16 +131,16 @@ module.exports = function (app) {
       let output = [];
       let retData = Object.assign(data);
       
-      console.log(JSON.stringify(retData, null, 2));
+      // console.log(JSON.stringify(retData, null, 2));
+      retData = JSON.parse(JSON.stringify(retData));
       
       retData.forEach(function(el) {
-        let newEl = Object.assign(el);
-        if (newEl.replies.length>3){
-          newEl.replycount = newEl.replies.length;
-          newEl.replies = newEl.replies.splice(newEl.replies.length-3);
-        } else newEl.replycount = newEl.replies.length;
+        if (el.replies.length>3){
+          el.replycount = el.replies.length;
+          el.replies = el.replies.splice(el.replies.length-3);
+        } else el.replycount = el.replies.length;
         
-        newEl.replies.forEach(function(reply){
+        el.replies.forEach(function(reply){
           // console.log(reply);
           delete reply.deletePassword;
           delete reply.reported;
@@ -155,7 +155,7 @@ module.exports = function (app) {
         // }
         
         
-        output.push(newEl);
+        output.push(el);
       })
       // console.log(JSON.stringify(output, null, 2));
       res.json(output);
