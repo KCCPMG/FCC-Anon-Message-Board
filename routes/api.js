@@ -150,8 +150,19 @@ module.exports = function (app) {
       res.json(output);
     })
     
+    // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
     .delete(function(req, res){
-      
+      req.params.board;
+      req.body.thread_id;
+      req.body.delete_password;
+      Thread.findById(req.bodythread_id, function(err, data){
+        if (err) console.log(err);
+        else {
+          if (data._id === req.body.thread_id && data.deletePassword === req.body.delete_password) {
+            data.del
+          }
+        }
+      })
     })
 
   });
