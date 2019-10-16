@@ -128,14 +128,13 @@ module.exports = function (app) {
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
     console.log(searchObj);
     
-    Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(err, data){
-      if (err) console.log(err);
-      else {
-        console.log(data);
-        // res.json(data);
-        res.json("hello");
-        console.log("finished");
-      }
+    Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
+      let output = [];
+      data.forEach(function(el) {
+        output.push(el)
+      })
+      res.json(data);
+
     })
     
     
