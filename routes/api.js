@@ -128,11 +128,13 @@ module.exports = function (app) {
     if (req.query.thread_id) searchObj._id = `ObjectId(\"${req.query.thread_id}\")`
     console.log(searchObj);
     
-    Thread.find({board: board}).sort('-bumpedOn').limit(10, function(err, data){
+    Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(err, data){
       if (err) console.log(err);
       else {
         console.log(data);
-        res.json(data);
+        // res.json(data);
+        res.send("hello");
+        console.log("finished");
       }
     })
     
@@ -148,7 +150,7 @@ module.exports = function (app) {
     //     else res.json(data);
     //   })
     // }
-  })
+  });
   
   
   
