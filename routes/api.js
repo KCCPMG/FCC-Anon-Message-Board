@@ -129,7 +129,10 @@ module.exports = function (app) {
     
     Thread.find(searchObj).sort('-bumpedOn').limit(10).then(function(data){
       let output = [];
-      let retData = data.toObject();
+      data.forEach(function(el){
+        el = el.toObject();
+      })
+      let retData = Object.assign(data);
       
       // console.log(JSON.stringify(retData, null, 2));
       // retData = JSON.parse(JSON.stringify(retData));
