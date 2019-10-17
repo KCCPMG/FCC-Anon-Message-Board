@@ -13,6 +13,9 @@ var server = require('../server');
 
 chai.use(chaiHttp);
 
+var thread_id;
+var thread_delete_password;
+
 suite('Functional Tests', function() {
 
   suite('API ROUTING FOR /api/threads/:board', function() {
@@ -44,6 +47,12 @@ suite('Functional Tests', function() {
           .send()
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
+            let responseObj = JSON.parse(res.text);
+            assert.equal(responseObj.length, 10, "check length")
+            assert.equal(responseObj[0].board, "apitest", "check board");
+            assert.equal(responseObj[0].text, "This is a test", "check text");
+            thread_id = 
+            thread_delete_password = responseObj[0].deletePassword;
             done();  
           });
       })
@@ -51,10 +60,14 @@ suite('Functional Tests', function() {
     
     suite('DELETE', function() {
       
+      // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
       test('DELETE thread', function(done) {
         chai.request(server)
           .delete('/api/threads/test')
-          .send()
+          .send({
+            thread_id,
+            delete_password
+          })
           .end(function (err,res){
             assert.fail("No Test");
             done();  
@@ -63,6 +76,8 @@ suite('Functional Tests', function() {
     });
     
     suite('PUT', function() {
+    
+      // I can report a thread and change it's reported value to true by sending a PUT request to /api/threads/{board} and pass along the thread_id. (Text response will be 'success')
       test('PUT thread', function(done) {
         chai.request(server)
           .put('/api/threads/test')
