@@ -122,8 +122,10 @@ suite('Functional Tests', function() {
     // I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
     suite('GET', function() {
       test('GET reply', function(done){
+        let get_str = '/api/replies/apitest/' + next_thread_id;
+        console.log(get_str);
         chai.request(server)
-          .get('/api/replies/apitest/' + next_thread_id)
+          .get(get_str)
           .send()
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
