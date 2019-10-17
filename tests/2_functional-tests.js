@@ -17,6 +17,7 @@ var thread_id;
 var thread_delete_password;
 var next_thread_id;
 var reply_id;
+var reply_delete_password;
 
 suite('Functional Tests', function() {
 
@@ -123,10 +124,8 @@ suite('Functional Tests', function() {
     // I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
     suite('GET', function() {
       test('GET reply', function(done){
-        let get_str = '/api/replies/apitest/?thread_id=' + next_thread_id;
-        console.log(get_str);
         chai.request(server)
-          .get(get_str)
+          .get('/api/replies/apitest/?thread_id=' + next_thread_id)
           .send()
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
@@ -136,7 +135,8 @@ suite('Functional Tests', function() {
             assert.isOk(retObj, 'bumpedOn');
             assert.isOk(retObj, 'reported');
             assert.isOk(retObj, 'replies');
-            reply_id = retObj.replies[0]._id
+            reply_id = retObj.replies[0]._id;
+            reply_delete_password = retObj.replies[0].deletePassword;
             done();  
           });
       })
@@ -153,19 +153,26 @@ suite('Functional Tests', function() {
           })
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
-            assert.equal(res.redirects[0].endsWith('/b/apitest/' + next_thread_id), true, "Res redirect");
+            assert.equal(res.text, "success");
             done();  
           });
        })
     });
     
+    
+    // I can delete a post(just changing the text to '[deleted]') if I send a DELETE request to /api/replies/{board} and pass along the thread_id, reply_id, & delete_password. (Text response will be 'incorrect password' or 'success')
     suite('DELETE', function() {
       test('DELETE reply', function(done){
         chai.request(server)
           .delete('/api/replies/apitest')
-          .send()
+          .send({
+            thread_id: next_thread_id,
+            reply_id: reply_id,
+            delete_password: reply_delete_password
+          })
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.text, "success");
             done();  
           });
       })
