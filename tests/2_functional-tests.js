@@ -18,23 +18,44 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/threads/:board', function() {
     
     suite('POST', function(done) {
-      assert.false();
-      done();
+      chai.request(server)
+        .post('/api/threads/test')
+        .send()
+        .end(function (err,res){
+          assert.fail();
+          done();  
+        });
+      
     });
     
     suite('GET', function(done) {
-      assert.false();
-      done();
+      chai.request(server)
+        .get('/api/threads/test')
+        .send()
+        .end(function (err,res){
+          assert.fail();
+          done();  
+        });
     });
     
     suite('DELETE', function(done) {
-      assert.false();
-      done();
+      chai.request(server)
+        .delete('/api/threads/test')
+        .send()
+        .end(function (err,res){
+          assert.fail();
+          done();  
+        });
     });
     
     suite('PUT', function(done) {
-      assert.false();
-      done();
+      chai.request(server)
+        .put('/api/threads/test')
+        .send()
+        .end(function (err,res){
+          assert.fail();
+          done();  
+        });
     });
     
 
@@ -43,22 +64,27 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/replies/:board', function() {
     
     suite('POST', function(done) {
-      assert.false();
-      done();
+      chai.request(server)
+        .put('/api/replies/test')
+        .send()
+        .end(function (err,res){
+          assert.fail();
+          done();  
+        });
     });
     
     suite('GET', function(done) {
-      assert.false();
+      assert.fail();
       done();
     });
     
     suite('PUT', function(done) {
-      assert.false();
+      assert.fail();
       done();
     });
     
     suite('DELETE', function(done) {
-      assert.false();
+      assert.fail();
       done();
     });
     
