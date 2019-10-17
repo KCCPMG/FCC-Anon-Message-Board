@@ -20,7 +20,9 @@ suite('Functional Tests', function() {
     suite('POST', function(done) {
       chai.request(server)
         .post('/api/threads/test')
-        .send()
+        .send({
+          
+        })
         .end(function (err,res){
           assert.fail("No Test");
           done();  
