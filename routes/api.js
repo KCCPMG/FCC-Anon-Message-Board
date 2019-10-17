@@ -251,7 +251,7 @@ module.exports = function (app) {
   .put(function(req, res){
     Thread.findById(req.body.thread_id, function(err, data){
       if (err) console.log(err);
-      else if (data===null) res.send('invalid reply')
+      else if (data===null || data.board !== req.params.board) res.send('invalid reply')
       else {
         let found = false;
         data.replies.forEach(function(rep){
@@ -259,10 +259,11 @@ module.exports = function (app) {
             rep.reported = true;
             found = true;
             data.save(function(){
-              
+              res.send('success')
             })
           }
         })
+        if (found===false) res.send('invalid reply');
       }
     })
   })
