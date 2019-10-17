@@ -72,7 +72,6 @@ suite('Functional Tests', function() {
             assert.equal(res.statusCode, 200);
             console.log(res.text);
             assert.equal(res.text, "successful", "check text");
-            assert.fail("No Test");
             done();  
           });
       })
