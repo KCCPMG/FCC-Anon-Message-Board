@@ -28,6 +28,7 @@ suite('Functional Tests', function() {
             delete_password: "Test Delete Password"
           })
           .end(function (err,res){
+            console.log(res);
             assert.isOk(res.url, "Res redirect");
             done();  
           });
