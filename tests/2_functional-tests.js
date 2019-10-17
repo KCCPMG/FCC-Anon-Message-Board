@@ -51,7 +51,7 @@ suite('Functional Tests', function() {
             assert.equal(responseObj.length, 10, "check length")
             assert.equal(responseObj[0].board, "apitest", "check board");
             assert.equal(responseObj[0].text, "This is a test", "check text");
-            thread_id = 
+            thread_id = responseObj[0]._id;
             thread_delete_password = responseObj[0].deletePassword;
             done();  
           });
@@ -63,12 +63,15 @@ suite('Functional Tests', function() {
       // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
       test('DELETE thread', function(done) {
         chai.request(server)
-          .delete('/api/threads/test')
+          .delete('/api/threads/apitest')
           .send({
             thread_id,
-            delete_password
+            thread_delete_password
           })
           .end(function (err,res){
+            assert.equal(res.statusCode, 200);
+            console.log(res.text);
+            assert.equal(res.text, "successful", "check text");
             assert.fail("No Test");
             done();  
           });
@@ -80,7 +83,7 @@ suite('Functional Tests', function() {
       // I can report a thread and change it's reported value to true by sending a PUT request to /api/threads/{board} and pass along the thread_id. (Text response will be 'success')
       test('PUT thread', function(done) {
         chai.request(server)
-          .put('/api/threads/test')
+          .put('/api/threads/apitest')
           .send()
           .end(function (err,res){
             assert.fail("No Test");
@@ -97,7 +100,7 @@ suite('Functional Tests', function() {
     suite('POST', function() {
       test('POST reply', function(done) {
         chai.request(server)
-          .post('/api/replies/test')
+          .post('/api/replies/apitest')
           .send()
           .end(function (err,res){
             assert.fail("No Test");
@@ -109,7 +112,7 @@ suite('Functional Tests', function() {
     suite('GET', function() {
       test('GET reply', function(done){
         chai.request(server)
-          .get('/api/replies/test')
+          .get('/api/replies/apitest')
           .send()
           .end(function (err,res){
             assert.fail("No Test");
@@ -121,7 +124,7 @@ suite('Functional Tests', function() {
     suite('PUT', function() {
       test('PUT reply', function(done) {
         chai.request(server)
-          .put('/api/replies/test')
+          .put('/api/replies/apitest')
           .send()
           .end(function (err,res){
             assert.fail("No Test");
@@ -133,7 +136,7 @@ suite('Functional Tests', function() {
     suite('DELETE', function() {
       test('DELETE reply', function(done){
         chai.request(server)
-          .delete('/api/replies/test')
+          .delete('/api/replies/apitest')
           .send()
           .end(function (err,res){
             assert.fail("No Test");
