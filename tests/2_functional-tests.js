@@ -28,6 +28,7 @@ suite('Functional Tests', function() {
             delete_password: "Test Delete Password"
           })
           .end(function (err,res){
+            assert.equal(res.statusCode, 200);
             assert.equal(res.redirects[0].endsWith('/b/apitest'), true, "Res redirect");
             done();  
           });
@@ -39,12 +40,10 @@ suite('Functional Tests', function() {
       // I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
       test('GET thread', function(done) {
         chai.request(server)
-          .get('/api/threads/test')
-          .send({
-            
-          })
+          .get('/api/threads/apitest')
+          .send()
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
             done();  
           });
       })
