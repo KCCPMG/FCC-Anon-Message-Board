@@ -22,7 +22,7 @@ suite('Functional Tests', function() {
         .post('/api/threads/test')
         .send()
         .end(function (err,res){
-          assert.fail();
+          assert.fail("No Test");
           done();  
         });
       
@@ -33,7 +33,7 @@ suite('Functional Tests', function() {
         .get('/api/threads/test')
         .send()
         .end(function (err,res){
-          assert.fail();
+          assert.fail("No Test");
           done();  
         });
     });
@@ -43,7 +43,7 @@ suite('Functional Tests', function() {
         .delete('/api/threads/test')
         .send()
         .end(function (err,res){
-          assert.fail();
+          assert.fail("No Test");
           done();  
         });
     });
@@ -53,7 +53,7 @@ suite('Functional Tests', function() {
         .put('/api/threads/test')
         .send()
         .end(function (err,res){
-          assert.fail();
+          assert.fail("No Test");
           done();  
         });
     });
@@ -65,27 +65,42 @@ suite('Functional Tests', function() {
     
     suite('POST', function(done) {
       chai.request(server)
-        .put('/api/replies/test')
+        .post('/api/replies/test')
         .send()
         .end(function (err,res){
-          assert.fail();
+          assert.fail("No Test");
           done();  
         });
     });
     
     suite('GET', function(done) {
-      assert.fail();
-      done();
+      chai.request(server)
+        .get('/api/replies/test')
+        .send()
+        .end(function (err,res){
+          assert.fail("No Test");
+          done();  
+        });
     });
     
     suite('PUT', function(done) {
-      assert.fail();
-      done();
+      chai.request(server)
+        .put('/api/replies/test')
+        .send()
+        .end(function (err,res){
+          assert.fail("No Test");
+          done();  
+        });
     });
     
     suite('DELETE', function(done) {
-      assert.fail();
-      done();
+      chai.request(server)
+        .delete('/api/replies/test')
+        .send()
+        .end(function (err,res){
+          assert.fail("No Test");
+          done();  
+        });
     });
     
   });
