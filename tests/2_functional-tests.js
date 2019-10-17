@@ -62,16 +62,18 @@ suite('Functional Tests', function() {
       
       // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
       test('DELETE thread', function(done) {
+        let tid = '5da8179b5985ab363b9818fb'
         chai.request(server)
           .delete('/api/threads/apitest')
           .send({
-            thread_id,
+            board: 'apitest',
+            thread_id: tid,
             thread_delete_password
           })
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
-            console.log(thread_id, thread_delete_password, res.text);
-            console.log(res);
+            console.log(tid, thread_delete_password, res.text);
+            // console.log(res);
             assert.equal(res.text.toString(), "successful", "check text");
             done();  
           });
