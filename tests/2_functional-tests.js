@@ -17,20 +17,24 @@ suite('Functional Tests', function() {
 
   suite('API ROUTING FOR /api/threads/:board', function() {
     
-    suite('POST', function() {
-      
+    suite('POST', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('GET', function() {
-      
+    suite('GET', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('DELETE', function() {
-      
+    suite('DELETE', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('PUT', function() {
-      
+    suite('PUT', function(done) {
+      assert.false();
+      done();
     });
     
 
@@ -38,20 +42,24 @@ suite('Functional Tests', function() {
   
   suite('API ROUTING FOR /api/replies/:board', function() {
     
-    suite('POST', function() {
-      
+    suite('POST', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('GET', function() {
-      
+    suite('GET', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('PUT', function() {
-      
+    suite('PUT', function(done) {
+      assert.false();
+      done();
     });
     
-    suite('DELETE', function() {
-      
+    suite('DELETE', function(done) {
+      assert.false();
+      done();
     });
     
   });
