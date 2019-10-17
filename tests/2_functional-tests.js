@@ -36,10 +36,13 @@ suite('Functional Tests', function() {
     
     suite('GET', function() {
       
+      // I can GET an array of the most recent 10 bumped threads on the board with only the most recent 3 replies from /api/threads/{board}. The reported and delete_passwords fields will not be sent.
       test('GET thread', function(done) {
         chai.request(server)
           .get('/api/threads/test')
-          .send()
+          .send({
+            
+          })
           .end(function (err,res){
             assert.fail("No Test");
             done();  
