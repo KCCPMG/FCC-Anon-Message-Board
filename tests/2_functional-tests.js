@@ -20,7 +20,7 @@ suite('Functional Tests', function() {
     // I can POST a thread to a specific message board by passing form data text and delete_password to /api/threads/{board}.(Recomend res.redirect to board page /b/{board}) Saved will be _id, text, created_on(date&time), bumped_on(date&time, starts same as created_on), reported(boolean), delete_password, & replies(array).
     suite('POST', function() {
       
-      test('testin' , function(done){
+      test('POST thread' , function(done){
         chai.request(server)
           .post('/api/threads/apitest')
           .send({
@@ -28,41 +28,48 @@ suite('Functional Tests', function() {
             delete_password: "Test Delete Password"
           })
           .end(function (err,res){
-            // assert.isOk(res.url, "Res redirect");
-            assert.equal(2,2);
+            assert.isOk(res.url, "Res redirect");
             done();  
           });
         });
     });
     
-    suite('GET', function(done) {
-      chai.request(server)
-        .get('/api/threads/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('GET', function() {
+      
+      test('GET thread', function(done) {
+        chai.request(server)
+          .get('/api/threads/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
-    suite('DELETE', function(done) {
-      chai.request(server)
-        .delete('/api/threads/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('DELETE', function() {
+      
+      test('DELETE thread', function(done) {
+        chai.request(server)
+          .delete('/api/threads/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
-    suite('PUT', function(done) {
-      chai.request(server)
-        .put('/api/threads/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('PUT', function() {
+      test('PUT thread', function(done) {
+        chai.request(server)
+          .put('/api/threads/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
 
@@ -70,44 +77,52 @@ suite('Functional Tests', function() {
   
   suite('API ROUTING FOR /api/replies/:board', function() {
     
-    suite('POST', function(done) {
-      chai.request(server)
-        .post('/api/replies/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('POST', function() {
+      test('POST reply', function(done) {
+        chai.request(server)
+          .post('/api/replies/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
-    suite('GET', function(done) {
-      chai.request(server)
-        .get('/api/replies/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('GET', function() {
+      test('GET reply', function(done){
+        chai.request(server)
+          .get('/api/replies/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
-    suite('PUT', function(done) {
-      chai.request(server)
-        .put('/api/replies/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('PUT', function() {
+      test('PUT reply', function(done) {
+        chai.request(server)
+          .put('/api/replies/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+       })
     });
     
-    suite('DELETE', function(done) {
-      chai.request(server)
-        .delete('/api/replies/test')
-        .send()
-        .end(function (err,res){
-          assert.fail("No Test");
-          done();  
-        });
+    suite('DELETE', function() {
+      test('DELETE reply', function(done){
+        chai.request(server)
+          .delete('/api/replies/test')
+          .send()
+          .end(function (err,res){
+            assert.fail("No Test");
+            done();  
+          });
+      })
     });
     
   });
