@@ -15,6 +15,7 @@ chai.use(chaiHttp);
 
 var thread_id;
 var thread_delete_password;
+var next_thread_id;
 
 suite('Functional Tests', function() {
 
@@ -53,6 +54,7 @@ suite('Functional Tests', function() {
             assert.equal(responseObj[0].text, "This is a test", "check text");
             thread_id = responseObj[0]._id;
             thread_delete_password = responseObj[0].deletePassword;
+            next_thread_id = responseObj[1]._id;
             done();  
           });
       })
@@ -62,19 +64,16 @@ suite('Functional Tests', function() {
       
       // I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
       test('DELETE thread', function(done) {
-        let tid = '5da8179b5985ab363b9818fb'
         chai.request(server)
           .delete('/api/threads/apitest')
           .send({
             board: 'apitest',
-            thread_id: tid,
-            thread_delete_password
+            thread_id,
+            delete_password: thread_delete_password
           })
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
-            console.log(tid, thread_delete_password, res.text);
-            // console.log(res);
-            assert.equal(res.text.toString(), "successful", "check text");
+            assert.equal(res.text, "success", "check text");
             done();  
           });
       })
@@ -86,9 +85,12 @@ suite('Functional Tests', function() {
       test('PUT thread', function(done) {
         chai.request(server)
           .put('/api/threads/apitest')
-          .send()
+          .send({
+            thread_id: next_thread_id
+          })
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.text, "success");
             done();  
           });
       })
@@ -99,13 +101,15 @@ suite('Functional Tests', function() {
   
   suite('API ROUTING FOR /api/replies/:board', function() {
     
+    // I can POST a reply to a thead on a specific board by passing form data text, delete_password, & thread_id to /api/replies/{board} and it will also update the bumped_on date to the comments date.(Recomend res.redirect to thread page /b/{board}/{thread_id}) In the thread's 'replies' array will be saved _id, text, created_on, delete_password, & reported.
     suite('POST', function() {
       test('POST reply', function(done) {
         chai.request(server)
           .post('/api/replies/apitest')
           .send()
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
+            assert.fail();
             done();  
           });
       })

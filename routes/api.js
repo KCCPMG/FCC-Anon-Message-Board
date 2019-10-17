@@ -157,6 +157,7 @@ module.exports = function (app) {
     Thread.findById(req.body.thread_id, function(err, data){
       if (err) console.log(err);
       else {
+        console.log(req.body.thread_id, req.params.board, req.body.delete_password);
         if (data.board === req.params.board && data.deletePassword === req.body.delete_password) {
           data.remove();
           res.send('success');
