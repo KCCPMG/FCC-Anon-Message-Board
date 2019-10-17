@@ -106,22 +106,27 @@ suite('Functional Tests', function() {
       test('POST reply', function(done) {
         chai.request(server)
           .post('/api/replies/apitest')
-          .send()
+          .send({
+            text: "Little Comment",
+            delete_password: "Little Comment Delete",
+            thread_id: next_thread_id
+          })
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
-            assert.fail();
+            assert.equal(res.redirects[0].endsWith('/b/apitest/' + next_thread_id), true, "Res redirect");
             done();  
           });
       })
     });
     
+    // I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
     suite('GET', function() {
       test('GET reply', function(done){
         chai.request(server)
-          .get('/api/replies/apitest')
+          .get('/api/replies/apitest/' + next_thread_id)
           .send()
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
             done();  
           });
       })
