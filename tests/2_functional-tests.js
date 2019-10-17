@@ -18,19 +18,21 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/threads/:board', function() {
     
     // I can POST a thread to a specific message board by passing form data text and delete_password to /api/threads/{board}.(Recomend res.redirect to board page /b/{board}) Saved will be _id, text, created_on(date&time), bumped_on(date&time, starts same as created_on), reported(boolean), delete_password, & replies(array).
-    suite('POST', function(done) {
-      chai.request(server)
-        .post('/api/threads/apitest')
-        .send({
-          text: "This is a test",
-          delete_password: "Test Delete Password"
-        })
-        .end(function (err,res){
-          // assert.isOk(res.url, "Res redirect");
-          assert.equal(2,2);
-          done();  
-        });
+    suite('POST', function() {
       
+      test('testin' , function(done){
+        chai.request(server)
+          .post('/api/threads/apitest')
+          .send({
+            text: "This is a test",
+            delete_password: "Test Delete Password"
+          })
+          .end(function (err,res){
+            // assert.isOk(res.url, "Res redirect");
+            assert.equal(2,2);
+            done();  
+          });
+        });
     });
     
     suite('GET', function(done) {
