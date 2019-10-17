@@ -70,7 +70,7 @@ suite('Functional Tests', function() {
           })
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
-            console.log(res.text);
+            console.log(thread_id, thread_delete_password, res.text);
             assert.equal(res.text, "successful", "check text");
             done();  
           });
