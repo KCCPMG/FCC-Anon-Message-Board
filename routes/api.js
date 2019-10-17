@@ -96,7 +96,7 @@ x - I can GET an entire thread with all it's replies from /api/replies/{board}?t
 x - I can delete a thread completely if I send a DELETE request to /api/threads/{board} and pass along the thread_id & delete_password. (Text response will be 'incorrect password' or 'success')
 
 
-I can delete a post(just changing the text to '[deleted]') if I send a DELETE request to /api/replies/{board} and pass along the thread_id, reply_id, & delete_password. (Text response will be 'incorrect password' or 'success')
+x - I can delete a post(just changing the text to '[deleted]') if I send a DELETE request to /api/replies/{board} and pass along the thread_id, reply_id, & delete_password. (Text response will be 'incorrect password' or 'success')
 
 I can report a thread and change it's reported value to true by sending a PUT request to /api/threads/{board} and pass along the thread_id. (Text response will be 'success')
 
@@ -166,8 +166,22 @@ module.exports = function (app) {
         }
       }
     })
-  });
+  })
 
+  
+  // I can report a thread and change it's reported value to true by sending a PUT request to /api/threads/{board} and pass along the thread_id. (Text response will be 'success')
+  .put(function(req, res){
+    Thread.findById(req.body.thread_id, function(err, data){
+      if (err) console.log(err);
+      else if (data === null) res.send('invalid thread id');
+      else {
+        data.reported = true;
+        data.save(function(){
+          res.send('success');
+        })
+      }
+    })
+  })
   
   
   
