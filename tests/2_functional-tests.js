@@ -127,6 +127,12 @@ suite('Functional Tests', function() {
           .send()
           .end(function (err,res){
             assert.equal(res.statusCode, 200);
+            let retObj = JSON.parse(res.text);
+            assert.isOk(retObj, 'board');
+            assert.isOk(retObj, 'createdOn');
+            assert.isOk(retObj, 'bumpedOn');
+            assert.isOk(retObj, 'reported');
+            assert.isOk(retObj, 'replies');
             done();  
           });
       })
