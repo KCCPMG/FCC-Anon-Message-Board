@@ -16,6 +16,7 @@ chai.use(chaiHttp);
 var thread_id;
 var thread_delete_password;
 var next_thread_id;
+var reply_id;
 
 suite('Functional Tests', function() {
 
@@ -122,7 +123,7 @@ suite('Functional Tests', function() {
     // I can GET an entire thread with all it's replies from /api/replies/{board}?thread_id={thread_id}. Also hiding the same fields.
     suite('GET', function() {
       test('GET reply', function(done){
-        let get_str = '/api/replies/apitest/' + next_thread_id;
+        let get_str = '/api/replies/apitest/?thread_id=' + next_thread_id;
         console.log(get_str);
         chai.request(server)
           .get(get_str)
@@ -135,18 +136,24 @@ suite('Functional Tests', function() {
             assert.isOk(retObj, 'bumpedOn');
             assert.isOk(retObj, 'reported');
             assert.isOk(retObj, 'replies');
+            reply_id = retObj.replies[0]._id
             done();  
           });
       })
     });
     
+    // I can report a reply and change it's reported value to true by sending a PUT request to /api/replies/{board} and pass along the thread_id & reply_id. (Text response will be 'success')
     suite('PUT', function() {
       test('PUT reply', function(done) {
         chai.request(server)
           .put('/api/replies/apitest')
-          .send()
+          .send({
+            thread_id: next_thread_id,
+            reply_id: reply_id
+          })
           .end(function (err,res){
-            assert.fail("No Test");
+            assert.equal(res.statusCode, 200);
+            assert.equal(res.redirects[0].endsWith('/b/apitest/' + next_thread_id), true, "Res redirect");
             done();  
           });
        })
